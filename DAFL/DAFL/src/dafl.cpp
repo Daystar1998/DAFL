@@ -5,10 +5,7 @@ void dataFile::createFile(char *fileName, int fileLength) {
 	finOut.clear();
 	finOut.open(fileName, std::ios::in | std::ios::out | std::ios::binary | std::ios::app | std::ios::ate);
 
-	if (!finOut.is_open()) {
-
-		fs = fsCreateFail;
-	} else {
+	if (finOut.is_open()) {
 
 		// Check if the file is empty
 		if (finOut.tellg() == 0) {
@@ -28,13 +25,16 @@ void dataFile::createFile(char *fileName, int fileLength) {
 			finOut.read((char *)& recCount, sizeof(recCount));
 		}
 
-		if (!finOut.bad()) {
-
-			fs = fsCreateFail;
-		} else {
+		if (finOut.bad()) {
 
 			fs = fsSuccess;
+		} else {
+
+			fs = fsCreateFail;
 		}
+	} else {
+
+		fs = fsCreateFail;
 	}
 }
 
