@@ -64,3 +64,21 @@ void dataFile::openFile(char *fileName) {
 	}
 }
 
+void dataFile::closeFile() {
+
+	finOut.clear();
+	
+	// Write header to file
+	finOut.write((char *)& recSize, sizeof(recSize));
+	finOut.write((char *)& recCount, sizeof(recCount));
+	
+	finOut.close();
+
+	if (finOut.bad()) {
+
+		fs = fsSuccess;
+	} else {
+
+		fs = fsCloseFail;
+	}
+}
