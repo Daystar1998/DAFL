@@ -3,6 +3,10 @@
 void dataFile::createFile(char *fileName, int recordSize) {
 
 	finOut.clear();
+	finOut.open(fileName, std::ios::out | std::ios::app);
+	finOut.close();
+
+	finOut.clear();
 	finOut.open(fileName, std::ios::in | std::ios::out | std::ios::binary | std::ios::app | std::ios::ate);
 
 	if (finOut.is_open()) {
@@ -41,9 +45,20 @@ void dataFile::createFile(char *fileName, int recordSize) {
 void dataFile::openFile(char *fileName) {
 
 	finOut.clear();
-	finOut.open(fileName, std::ios::in | std::ios::out | std::ios::binary | std::ios::app | std::ios::ate);
+	finOut.open(fileName, std::ios::in);
 
-	if (finOut.is_open() && finOut.tellg() > 0) {
+	if (finOut) {
+
+		finOut.close();
+
+		finOut.clear();
+		finOut.open(fileName, std::ios::in | std::ios::out | std::ios::binary | std::ios::app | std::ios::ate);
+	}else {
+
+		finOut.close();
+	}
+
+	if (finOut.is_open()) {
 
 		finOut.seekg(std::ios::beg);
 		finOut.seekp(std::ios::beg);
@@ -68,11 +83,11 @@ void dataFile::openFile(char *fileName) {
 void dataFile::closeFile() {
 
 	finOut.clear();
-	
+
 	// Write header to file
 	finOut.write((char *)& recSize, sizeof(recSize));
 	finOut.write((char *)& recCount, sizeof(recCount));
-	
+
 	finOut.close();
 
 	if (finOut.bad()) {
@@ -93,10 +108,10 @@ void dataFile::putRecord(int relativeRecordNumber, const void *record) {
 
 	finOut.seekp(recordOffset);
 
-	if(relativeRecordNumber > recCount) {
+	if (relativeRecordNumber >= recCount) {
 
 		updateRecordCount(1);
-		finOut.write((char *) record, sizeof(record));
+		finOut.write((char *)record, recSize);
 	} else {
 
 		// Edit record
@@ -119,7 +134,7 @@ void dataFile::getRecord(int relativeRecordNumber, const void *record) {
 	int recordOffset = relativeRecordNumber * recSize + sizeof(recSize) + sizeof(recCount);
 
 	finOut.seekg(recordOffset);
-	finOut.read((char *)record, sizeof(record));
+	finOut.read((char *)record, recSize);
 
 	if (finOut.bad()) {
 
