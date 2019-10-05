@@ -43,8 +43,9 @@ void dataFile::openFile(char *fileName) {
 	finOut.clear();
 	finOut.open(fileName, std::ios::in | std::ios::out | std::ios::binary | std::ios::app | std::ios::ate);
 
-	if (finOut.is_open()) {
+	if (finOut.is_open() && finOut.tellg() > 0) {
 
+		finOut.seekg(std::ios::beg);
 		finOut.seekp(std::ios::beg);
 
 		// Read header
