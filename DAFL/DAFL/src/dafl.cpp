@@ -27,10 +27,10 @@ void dataFile::createFile(char *fileName, int fileLength) {
 
 		if (finOut.bad()) {
 
-			fs = fsSuccess;
+			fs = fsCreateFail;
 		} else {
 
-			fs = fsCreateFail;
+			fs = fsSuccess;
 		}
 	} else {
 
@@ -53,10 +53,10 @@ void dataFile::openFile(char *fileName) {
 
 		if (finOut.bad()) {
 
-			fs = fsSuccess;
+			fs = fsOpenFail;
 		} else {
 
-			fs = fsOpenFail;
+			fs = fsSuccess;
 		}
 	} else {
 
@@ -76,10 +76,10 @@ void dataFile::closeFile() {
 
 	if (finOut.bad()) {
 
-		fs = fsSuccess;
+		fs = fsCloseFail;
 	} else {
 
-		fs = fsCloseFail;
+		fs = fsSuccess;
 	}
 }
 
