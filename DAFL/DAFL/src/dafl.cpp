@@ -118,7 +118,7 @@ void dataFile::getRecord(int relativeRecordNumber, const void *record) {
 	// Record number x record size + header size
 	int recordOffset = relativeRecordNumber * recSize + sizeof(recSize) + sizeof(recCount);
 
-	finOut.seekp(recordOffset);
+	finOut.seekg(recordOffset);
 	finOut.read((char *)record, sizeof(record));
 
 	if (finOut.bad()) {
