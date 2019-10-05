@@ -99,7 +99,7 @@ public:
 	void updateRecordCount(int n);
 
 	/******************************************************************************
-		Name: FileStatus
+		Name: fileStatus
 
 		Des:
 			Return the status of the last file operation
@@ -107,5 +107,5 @@ public:
 		Returns:
 			type int, the status of the last file operation
 	******************************************************************************/
-	int FileStatus();
+	int fileStatus();
 };
