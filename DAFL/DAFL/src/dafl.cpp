@@ -138,3 +138,8 @@ void dataFile::updateRecordCount(int n) {
 
 	recCount += n;
 }
+
+int dataFile::fileStatus() {
+
+	return fs;
+}
