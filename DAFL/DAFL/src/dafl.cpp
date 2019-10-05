@@ -53,7 +53,7 @@ void dataFile::openFile(char *fileName) {
 
 		finOut.clear();
 		finOut.open(fileName, std::ios::in | std::ios::out | std::ios::binary | std::ios::ate);
-	}else {
+	} else {
 
 		finOut.close();
 	}
@@ -103,46 +103,51 @@ void dataFile::closeFile() {
 
 void dataFile::putRecord(int relativeRecordNumber, const void *record) {
 
-	finOut.clear();
+	if (relativeRecordNumber >= 0 && relativeRecordNumber <= recCount) {
 
-	// Record number x record size + header size
-	int recordOffset = relativeRecordNumber * recSize + sizeof(recSize) + sizeof(recCount);
+		finOut.clear();
 
-	finOut.seekp(recordOffset);
+		// Record number x record size + header size
+		int recordOffset = relativeRecordNumber * recSize + sizeof(recSize) + sizeof(recCount);
 
-	if (relativeRecordNumber >= recCount) {
-
+		finOut.seekp(recordOffset);
 		finOut.write((char *)record, recSize);
+
+		if (finOut.bad()) {
+
+			fs = fsPutFail;
+		} else {
+
+			fs = fsSuccess;
+		}
 	} else {
-
-		// Edit record
-	}
-
-	if (finOut.bad()) {
 
 		fs = fsPutFail;
-	} else {
-
-		fs = fsSuccess;
 	}
 }
 
 void dataFile::getRecord(int relativeRecordNumber, const void *record) {
 
-	finOut.clear();
+	if (relativeRecordNumber >= 0 && relativeRecordNumber < recCount) {
 
-	// Record number x record size + header size
-	int recordOffset = relativeRecordNumber * recSize + sizeof(recSize) + sizeof(recCount);
+		finOut.clear();
 
-	finOut.seekg(recordOffset);
-	finOut.read((char *)record, recSize);
+		// Record number x record size + header size
+		int recordOffset = relativeRecordNumber * recSize + sizeof(recSize) + sizeof(recCount);
 
-	if (finOut.bad()) {
+		finOut.seekg(recordOffset);
+		finOut.read((char *)record, recSize);
 
-		fs = fsGetFail;
+		if (finOut.bad()) {
+
+			fs = fsGetFail;
+		} else {
+
+			fs = fsSuccess;
+		}
 	} else {
 
-		fs = fsSuccess;
+		fs = fsGetFail;
 	}
 }
 
