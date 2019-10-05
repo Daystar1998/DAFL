@@ -56,11 +56,11 @@ void dataFile::openFile(char *fileName) {
 			fs = fsSuccess;
 		} else {
 
-			fs = fsCreateFail;
+			fs = fsOpenFail;
 		}
 	} else {
 
-		fs = fsCreateFail;
+		fs = fsOpenFail;
 	}
 }
 
