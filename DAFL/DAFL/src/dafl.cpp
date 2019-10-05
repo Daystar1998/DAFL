@@ -110,7 +110,6 @@ void dataFile::putRecord(int relativeRecordNumber, const void *record) {
 
 	if (relativeRecordNumber >= recCount) {
 
-		updateRecordCount(1);
 		finOut.write((char *)record, recSize);
 	} else {
 
