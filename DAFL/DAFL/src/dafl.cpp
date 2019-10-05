@@ -3,11 +3,11 @@
 void dataFile::createFile(char *fileName, int recordSize) {
 
 	finOut.clear();
-	finOut.open(fileName, std::ios::out | std::ios::app);
+	finOut.open(fileName, std::ios::out);
 	finOut.close();
 
 	finOut.clear();
-	finOut.open(fileName, std::ios::in | std::ios::out | std::ios::binary | std::ios::app | std::ios::ate);
+	finOut.open(fileName, std::ios::in | std::ios::out | std::ios::binary | std::ios::ate);
 
 	if (finOut.is_open()) {
 
@@ -52,7 +52,7 @@ void dataFile::openFile(char *fileName) {
 		finOut.close();
 
 		finOut.clear();
-		finOut.open(fileName, std::ios::in | std::ios::out | std::ios::binary | std::ios::app | std::ios::ate);
+		finOut.open(fileName, std::ios::in | std::ios::out | std::ios::binary | std::ios::ate);
 	}else {
 
 		finOut.close();
@@ -83,6 +83,8 @@ void dataFile::openFile(char *fileName) {
 void dataFile::closeFile() {
 
 	finOut.clear();
+
+	finOut.seekp(std::ios::beg);
 
 	// Write header to file
 	finOut.write((char *)& recSize, sizeof(recSize));
