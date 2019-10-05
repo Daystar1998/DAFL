@@ -109,3 +109,22 @@ void dataFile::putRecord(int relativeRecordNumber, const void *record) {
 		fs = fsSuccess;
 	}
 }
+
+void dataFile::getRecord(int relativeRecordNumber, const void *record) {
+
+	finOut.clear();
+
+	// Record number x record size + header size
+	int recordOffset = relativeRecordNumber * recSize + sizeof(recSize) + sizeof(recCount);
+
+	finOut.seekp(recordOffset);
+	finOut.read((char *)record, sizeof(record));
+
+	if (finOut.bad()) {
+
+		fs = fsGetFail;
+	} else {
+
+		fs = fsSuccess;
+	}
+}
