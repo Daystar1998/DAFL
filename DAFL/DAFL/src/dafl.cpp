@@ -1,6 +1,6 @@
 ﻿#include "dafl.h"
 
-void dataFile::createFile(char *fileName, int fileLength) {
+void dataFile::createFile(char *fileName, int recordSize) {
 
 	finOut.clear();
 	finOut.open(fileName, std::ios::in | std::ios::out | std::ios::binary | std::ios::app | std::ios::ate);
@@ -10,7 +10,7 @@ void dataFile::createFile(char *fileName, int fileLength) {
 		// Check if the file is empty
 		if (finOut.tellg() == 0) {
 
-			recSize = 0;
+			recSize = recordSize;
 			recCount = 0;
 
 			// Write header to file

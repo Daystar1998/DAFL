@@ -43,9 +43,9 @@ public:
 
 		Params:
 			fileName - type char*, the name of the file
-			fileLength - type int, length of the file in bytes
+			recordSize - type int, size of the record in bytes
 	******************************************************************************/
-	void createFile(char *fileName, int fileLength);
+	void createFile(char *fileName, int recordSize);
 
 	/******************************************************************************
 		Name: openFile
