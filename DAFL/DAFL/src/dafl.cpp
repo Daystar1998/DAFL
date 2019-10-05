@@ -3,6 +3,7 @@
 void dataFile::createFile(char *fileName, int recordSize) {
 
 	finOut.clear();
+	// Create file
 	finOut.open(fileName, std::ios::out);
 	finOut.close();
 
@@ -47,6 +48,7 @@ void dataFile::openFile(char *fileName) {
 	finOut.clear();
 	finOut.open(fileName, std::ios::in);
 
+	// Check if the file exists before reopening it as an input/output file
 	if (finOut) {
 
 		finOut.close();
