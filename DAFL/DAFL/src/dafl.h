@@ -1,4 +1,6 @@
-﻿/******************************************************************************
+﻿#pragma once
+
+/******************************************************************************
 	Name: dafl.h
 
 	Des:
@@ -10,10 +12,27 @@
 	Date: 10/05/2019
 ******************************************************************************/
 
-#pragma once
+#include <fstream>
+
+// File status indicators
+// Should use enum, however required to define to avoid conflict
+#define fsCreateFail 0
+#define fsSuccess 1
+#define fsGetFail 2
+#define fsCloseFail 3
+#define fsOpenFail 4
+#define fsPutFail 5
 
 class dataFile {
 
+private:
+
+	std::fstream finOut;
+
+	// Should expand these names to make them more readable. Unfortunately, doing so would conflict with function names
+	int recSize;
+	int recCount;
+	int fs;
 public:
 
 	/******************************************************************************
@@ -84,6 +103,10 @@ public:
 
 		Returns:
 			type int, the count of records in the file
+
+		Note:
+			Should be called getRecordCount, required to use recordCount on
+				specifications
 	******************************************************************************/
 	int recordCount();
 
@@ -106,6 +129,10 @@ public:
 
 		Returns:
 			type int, the status of the last file operation
+
+		Note:
+			Should be called getFileStatus, required to use fileStatus on
+				specifications
 	******************************************************************************/
 	int fileStatus();
 };
