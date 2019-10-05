@@ -82,3 +82,30 @@ void dataFile::closeFile() {
 		fs = fsCloseFail;
 	}
 }
+
+void dataFile::putRecord(int relativeRecordNumber, const void *record) {
+
+	finOut.clear();
+
+	// Record number x record size + header size
+	int recordOffset = relativeRecordNumber * recSize + sizeof(recSize) + sizeof(recCount);
+
+	finOut.seekp(recordOffset);
+
+	if(relativeRecordNumber > recCount) {
+
+		updateRecordCount(1);
+		finOut.write((char *) record, sizeof(record));
+	} else {
+
+		// Edit record
+	}
+
+	if (finOut.bad()) {
+
+		fs = fsPutFail;
+	} else {
+
+		fs = fsSuccess;
+	}
+}
