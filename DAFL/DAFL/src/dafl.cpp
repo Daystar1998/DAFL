@@ -128,3 +128,9 @@ void dataFile::getRecord(int relativeRecordNumber, const void *record) {
 		fs = fsSuccess;
 	}
 }
+
+int dataFile::recordCount() {
+
+	return recCount;
+}
+
