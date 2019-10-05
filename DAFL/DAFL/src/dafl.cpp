@@ -134,3 +134,7 @@ int dataFile::recordCount() {
 	return recCount;
 }
 
+void dataFile::updateRecordCount(int n) {
+
+	recCount += n;
+}
